@@ -10,9 +10,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cool_blue: {
-          light: "#232F3E",
-          DEFAULT: "#131921",
+        cool_grey: {
+          light: "#3E5170",
+          DEFAULT: "#3E4A5E",
         },
       },
     },
