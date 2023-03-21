@@ -14,14 +14,14 @@ function Banner() {
         showThumbs={false}
         interval={5000}
       >
-        <div className="h-[614px] ">
+        <div>
           <img loading="lazy" src="/forest.jpg" alt="" />
         </div>
-        <div className="h-[614px]">
+        <div>
           <img loading="lazy" src="/hb-limb.jpg" alt="" />
         </div>
 
-        <div className="h-[614px]">
+        <div>
           <img loading="lazy" src="/forest.jpg" alt="" />
         </div>
       </Carousel>
