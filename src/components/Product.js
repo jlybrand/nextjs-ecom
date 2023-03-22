@@ -2,10 +2,15 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { StarIcon, TruckIcon } from "@heroicons/react/20/solid";
 import Currency from "react-currency-formatter";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/slices/cartSlice";
+
 const MAX_RATING = 5;
 const MIN_RATING = 1;
 
 function Product({ id, title, price, description, category, image }) {
+  const dispatch = useDispatch();
+
   const [rating, setRating] = useState(1);
   const [freeShipping, setFreeShipping] = useState(true);
   useEffect(() => {
@@ -14,6 +19,20 @@ function Product({ id, title, price, description, category, image }) {
     );
     setFreeShipping(Math.random() < 0.5);
   }, []);
+
+  const addItemToCart = () => {
+    const product = {
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      freeShipping,
+    };
+
+    dispatch(addToCart(product));
+  };
 
   return (
     <div className="relative flex flex-col m-5 bg-white p-10 z-30">
@@ -47,7 +66,9 @@ function Product({ id, title, price, description, category, image }) {
           </div>
         )}
       </div>
-      <button className="add-button mt-auto">Add to Cart</button>
+      <button onClick={addItemToCart} className="add-button mt-auto">
+        Add to Cart
+      </button>
     </div>
   );
 }
