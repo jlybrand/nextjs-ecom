@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 function Header() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   return (
     <header>
       <div className="flex flex-grow items-center bg-cool_grey px-2 py-3">
