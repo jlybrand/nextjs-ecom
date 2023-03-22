@@ -32,20 +32,18 @@ function Product({ id, title, price, description, category, image }) {
         {Array(rating)
           .fill()
           .map((_, i) => (
-            <StarIcon className="h-5 text-yellow-500" />
+            <StarIcon key={i} className="h-5 text-yellow-500" />
           ))}
       </div>
       <p className="my-2 text-xs line-clamp-2">{description}</p>
 
-      <div className="mb-5">
+      <div className="flex justify-between mb-5">
         <Currency quantity={price} currency="USD" />
 
         {freeShipping && (
-          <div className="flex items-center space-x-1 text-purple-500">
-            <p className="font-bold">Free</p>
-            <div className="w-6">
-              <TruckIcon />
-            </div>
+          <div className="flex items-center space-x-4 text-purple-500">
+            <TruckIcon className="w-7" />
+            <p className="font-bold">Free Shipppng</p>
           </div>
         )}
       </div>

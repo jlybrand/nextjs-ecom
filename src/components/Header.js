@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 function Header() {
   return (
@@ -41,7 +42,7 @@ function Header() {
         </div>
 
         <div className="flex items-center mx-6 space-x-6 text-white text-xs whitespace-nowrap">
-          <div className="link">
+          <div onClick={signIn} className="link">
             <p>Hello User</p>
             <p className="font-extrabold md:text-sm">Account & Lists</p>
           </div>
