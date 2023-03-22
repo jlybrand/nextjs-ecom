@@ -15,6 +15,9 @@ module.exports = {
           DEFAULT: "#3E4A5E",
         },
       },
+      screens: {
+        "3xl": "1720px",
+      },
     },
   },
   variants: {
