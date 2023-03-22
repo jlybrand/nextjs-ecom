@@ -11,12 +11,24 @@ export const cartSlice = createSlice({
     addToCart: (state, action) => {
       state.items = [...state.items, action.payload];
     },
-    removeFromCart: (state, action) => {},
+    removeFromCart: (state, action) => {
+      const index = state.items.findIndex(
+        (cartItem) => cartItem.id === action.payload.id
+      );
+
+      let newCart = [...state.items];
+      console.log("INDEX :", index);
+
+      if (index >= 0) {
+        newCart.splice(index, 1);
+      } else {
+        console.log(`Cannot remove product ${action.payload.id}.`);
+      }
+      state.items = newCart;
+    },
   },
 });
 
 export const { addToCart, removeFromCart } = cartSlice.actions;
-
 export const selectItems = (state) => state.cart.items;
-
 export default cartSlice.reducer;
