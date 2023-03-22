@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 function Header() {
+  const { data: session, status } = useSession();
   return (
     <header>
       <div className="flex flex-grow items-center bg-cool_grey px-2 py-3">
@@ -42,8 +43,10 @@ function Header() {
         </div>
 
         <div className="flex items-center mx-6 space-x-6 text-white text-xs whitespace-nowrap">
-          <div onClick={signIn} className="link">
-            <p>Hello User</p>
+          <div onClick={!session ? signIn : signOut} className="link">
+            <p className="hover:underline">
+              {session ? `Hello ${session.user.name}` : "Sign In"}
+            </p>
             <p className="font-extrabold md:text-sm">Account & Lists</p>
           </div>
 
