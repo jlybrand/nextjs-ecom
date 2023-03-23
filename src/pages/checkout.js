@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useSelector } from "react-redux";
 import Currency from "react-currency-formatter";
 import Header from "@/components/Header";
@@ -5,13 +6,27 @@ import CheckoutProduct from "@/components/CheckoutProduct";
 import { selectItems, selectTotal } from "@/slices/cartSlice";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(process.env.stripe_public_key);
 
 function Checkout() {
   const items = useSelector(selectItems);
   const total = useSelector(selectTotal);
-  console.log("TOTAL :", total);
   const { data: session } = useSession();
-  console.log("SESSION :", session);
+
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromise;
+    const checkoutSession = await axios.post("/api/create-checkout-session", {
+      items,
+      email: session.user.email,
+    });
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+
+    if (result.error) alert(result.error.message);
+  };
 
   return (
     <div className="bg-gray-100">
@@ -56,6 +71,8 @@ function Checkout() {
               </h2>
 
               <button
+                role="link"
+                onClick={createCheckoutSession}
                 disabled={!session}
                 className={`add-button mt-2 w-full ${
                   !session &&
