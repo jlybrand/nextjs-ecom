@@ -1,7 +1,7 @@
 import nc from "next-connect";
 
 function onError(err, req, res, next) {
-  console.error(err);
+  console.error("OnError :", err);
   res.status(500).end(err.toString());
 }
 

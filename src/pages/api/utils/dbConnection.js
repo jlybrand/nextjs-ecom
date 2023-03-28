@@ -12,24 +12,25 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-const dbConnection = async () => {
+async function dbConnection() {
+  let options;
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
-    const options = {
+    options = {
       useNewUrlParser: true,
-      udeUnifiedTopology: true,
+      useUnifiedTopology: true,
     };
   }
 
-  cached.promise = (await mongoose.connect(MONGO_URL, options)).then(
-    (mongoose) => {
+  cached.promise = await mongoose
+    .connect(MONGO_URL, options)
+    .then((mongoose) => {
       return mongoose;
-    }
-  );
+    });
 
   cached.conn = await cached.promise;
   return cached.conn;
-};
+}
 
 export default dbConnection;

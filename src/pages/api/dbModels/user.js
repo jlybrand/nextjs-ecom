@@ -5,15 +5,15 @@ import validator from "validator";
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: true,
+    required: [true, "Please enter email"],
     unique: [true, "Account already exists"],
     validate: [validator.isEmail, "Please enter a valid email"],
   },
   password: {
     type: String,
-    required: [true, "Please enter your email"],
+    required: [true, "Please enter password"],
     minLength: [6, "Your password must be at least 6 characters long"],
-    select: false, //dont send back password after request
+    select: false,
   },
   role: {
     type: String,
