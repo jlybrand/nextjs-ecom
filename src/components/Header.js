@@ -41,11 +41,18 @@ function Header() {
         </div>
 
         <div className="flex items-center mx-6 space-x-6 text-white text-xs whitespace-nowrap">
-          <div onClick={!session ? signIn : signOut} className="link">
+          <div onClick={!session ? signIn : null} className="link">
             <p className="hover:underline">
-              {session ? `Hello ${session.user.name}` : "Sign In"}
+              {session ? `Hello ${session.user.email}` : "Sign In"}
             </p>
             <p className="font-extrabold md:text-sm">Account & Lists</p>
+            <div className="hover:underline">
+              {session ? (
+                <button className="" onClick={signOut}>
+                  Sign Out
+                </button>
+              ) : null}
+            </div>
           </div>
 
           <div className="link">
@@ -82,15 +89,13 @@ function Header() {
           </svg>
           All
         </p>
-        <p className="link">Shirts</p>
-        <p className="link">Pants</p>
-        <p className="link">Shoes</p>
-        <p className="link hidden lg:inline-flex">Outer Wear</p>
-        <p className="link hidden lg:inline-flex">Boating</p>
-        <p className="link hidden lg:inline-flex">Hunting</p>
-        <p className="link hidden lg:inline-flex">Fishing</p>
-        <p className="link hidden lg:inline-flex">Camping</p>
-        <p className="link hidden lg:inline-flex">Electronics</p>
+        <p className="link">Feeders</p>
+        <p className="link">Food</p>
+        <p className="link hidden lg:inline-flex">Houses</p>
+        <p className="link hidden lg:inline-flex">Cameras</p>
+        <p className="link hidden lg:inline-flex">Binoculars</p>
+        <p className="link hidden lg:inline-flex">Maps</p>
+        <p className="link">Books</p>
       </div>
     </header>
   );
