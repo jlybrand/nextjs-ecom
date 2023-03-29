@@ -17,7 +17,7 @@ export default async (req, res) => {
     },
   }));
 
-  // TODO - removeb
+  // TODO - remove
   // console.log(transformedItems);
 
   const session = await stripe.checkout.sessions.create({
