@@ -40,7 +40,7 @@ function Checkout() {
             alt="cart banner"
           />
           <div className="flex flex-col space-y-10 bg-white text-black">
-            <h1 className="text-3xl border-b pb-4">
+            <h1 className="text-3xl border-b p-4">
               {items.length === 0 ? "Your cart is empty." : "Shopping Cart"}
             </h1>
             {items.map((item, i) => (
