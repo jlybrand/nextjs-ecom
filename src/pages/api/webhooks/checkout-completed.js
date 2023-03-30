@@ -1,6 +1,4 @@
 import { buffer } from "micro";
-// import * as admin from "firebase-admin";
-// import serviceAccount from "../../../../serviceAccountKey.json";
 import Order from "../dbModels/order";
 import dbConnection from "../utils/dbConnection";
 
@@ -10,7 +8,7 @@ const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 async function fulfillOrder(session) {
   // console.log("********************* fullfillOrder called ******************");
   // console.log(session);
-  // console.log("
+  // console.log("*************************************************************");
   const orderId = session.id;
   const customerName = session.customer_details.name;
   const customerEmail = session.customer_details.email;
@@ -36,9 +34,9 @@ async function fulfillOrder(session) {
   try {
     dbConnection();
     const savedOrder = await order.save();
-    console.log("***************** savedOrder **********************");
-    console.log(savedOrder);
-    console.log("***************************************");
+    // console.log("***************** savedOrder **********************");
+    // console.log(savedOrder);
+    // console.log("***************************************");
 
     res.status(200).json(savedOrder);
   } catch (error) {
@@ -61,8 +59,10 @@ export default async (req, res) => {
     }
 
     if (event.type === "checkout.session.completed") {
+      // console.log("********** checkout.session.completed *************");
       const session = event.data.object;
 
+      // TODO
       // const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
       //   session.id,
       //   {

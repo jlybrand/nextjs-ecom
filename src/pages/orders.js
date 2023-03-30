@@ -4,7 +4,6 @@ import { getSession, useSession } from "next-auth/react";
 
 function OrdersPage({ orders }) {
   const { data: session } = useSession();
-  console.log(orders);
 
   return (
     <div>
@@ -14,7 +13,11 @@ function OrdersPage({ orders }) {
           Your Orders
         </h1>
         {session ? (
-          <h2>{orders.length} Orders</h2>
+          <h2>
+            {orders.length > 1 || orders.length < 1
+              ? `${orders.length} Orders`
+              : `${orders.length} Order`}
+          </h2>
         ) : (
           <h2>Please sign in to view your orders.</h2>
         )}

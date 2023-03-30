@@ -2,8 +2,8 @@ import Currency from "react-currency-formatter";
 
 function Order({ id, amount, images, items, timestamp }) {
   return (
-    <div className="relative border rounded-md">
-      <div className="flex items-center space-x-10 py-5 px-10 bg-gray-100 text-sm text-gray-600">
+    <div className="relative rounded-md">
+      <div className="flex items-center space-x-10 mx-3 py-5 px-10 bg-gray-100 text-sm text-gray-600">
         <div>
           <p className="font-bold text-sm">ORDER PLACED</p>
           <p>{timestamp}</p>
@@ -15,9 +15,9 @@ function Order({ id, amount, images, items, timestamp }) {
           </p>
         </div>
         <p className="flex-1 text-xs whitespace-nowrap sm:text-xl self-end text-right text-blue-600">
-          {items.length} items
+          {items.length > 1 ? `${items.length} items` : `${items.length} item`}
         </p>
-        <p className="absolute top-2 right-2 w-40 lg:w-72 truncate text-xs whitespace-nowrap">
+        <p className="absolute top-2 right-2 w-40 lg:w-72 pr-10 truncate text-xs whitespace-nowrap">
           ORDER NUMBER {id}
         </p>
       </div>
