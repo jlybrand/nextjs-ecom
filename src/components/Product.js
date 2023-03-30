@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { StarIcon, TruckIcon } from "@heroicons/react/20/solid";
-import Currency from "react-currency-formatter";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/slices/cartSlice";
 
