@@ -1,12 +1,15 @@
 import Currency from "react-currency-formatter";
+import { DateTime } from "luxon";
 
 function Order({ id, amount, images, items, timestamp }) {
+  const dt = DateTime.fromISO(timestamp);
+  const formattedDate = dt.toLocaleString(DateTime.DATE_MED);
   return (
     <div className="relative rounded-md">
       <div className="flex items-center space-x-10 mx-3 py-5 px-10 bg-gray-100 text-sm text-gray-600">
         <div>
           <p className="font-bold text-sm">ORDER PLACED</p>
-          <p>{timestamp}</p>
+          <p>{formattedDate}</p>
         </div>
         <div>
           <p className="font-bold text-sm">TOTAL</p>
