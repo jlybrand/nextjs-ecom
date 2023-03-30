@@ -1,5 +1,4 @@
 import { StarIcon, TruckIcon } from "@heroicons/react/20/solid";
-import Currency from "react-currency-formatter";
 import Image from "next/image";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -56,7 +55,10 @@ function CheckoutProduct({
             ))}
         </div>
         <p className="text-xs my-2 line-clamp-3">{description}</p>
-        <Currency quantity={price} currency="USD" />
+        {new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(price)}
         {freeShipping && (
           <div className="flex items-center space-x-4 text-purple-500">
             <TruckIcon className="w-7" />

@@ -57,7 +57,10 @@ function Product({ id, title, price, description, category, image }) {
       <p className="my-2 text-xs line-clamp-2">{description}</p>
 
       <div className="flex justify-between mb-5">
-        <Currency quantity={price} currency="USD" />
+        {new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(price)}
 
         {freeShipping && (
           <div className="flex items-center space-x-4 text-purple-500">

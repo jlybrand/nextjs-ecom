@@ -1,4 +1,3 @@
-import Currency from "react-currency-formatter";
 import { DateTime } from "luxon";
 
 function Order({ id, amount, images, items, timestamp }) {
@@ -14,7 +13,10 @@ function Order({ id, amount, images, items, timestamp }) {
         <div>
           <p className="font-bold text-sm">TOTAL</p>
           <p>
-            <Currency quantity={amount} currency="USD" />
+            {new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: "USD",
+            }).format(amount)}
           </p>
         </div>
         <p className="flex-1 text-xs whitespace-nowrap sm:text-xl self-end text-right text-blue-600">

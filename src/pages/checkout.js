@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
-import Currency from "react-currency-formatter";
 import Header from "@/components/Header";
 import CheckoutProduct from "@/components/CheckoutProduct";
 import { selectItems, selectTotal } from "@/slices/cartSlice";
@@ -66,7 +65,10 @@ function Checkout() {
               <h2>
                 Subtotal ({items.length}) items:
                 <span className="font-bold pl-2">
-                  <Currency quantity={total} currency="USD" />
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(total)}
                 </span>
               </h2>
 
