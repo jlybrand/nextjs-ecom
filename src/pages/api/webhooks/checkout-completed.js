@@ -37,10 +37,9 @@ async function fulfillOrder(session) {
     // console.log("***************** savedOrder **********************");
     // console.log(savedOrder);
     // console.log("***************************************");
-
-    res.status(200).json(savedOrder);
+    return savedOrder;
   } catch (error) {
-    res.status(500).json(error.message);
+    console.log("DB ERROR :", error.message);
   }
 }
 
@@ -74,7 +73,7 @@ export default async (req, res) => {
       // console.log("***********************");
 
       return fulfillOrder(session)
-        .then(() => res.status(200))
+        .then(() => res.status(200).send())
         .catch((err) => res.status(400).send(`Webhook ERROR: ${err.message}`));
     }
   }
