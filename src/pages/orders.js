@@ -53,7 +53,7 @@ export async function getServerSideProps(context) {
   }
 
   // TODO send customerEmail from session instead of entire session
-  const response = await fetch("http://localhost:3000/api/orders/getOrders", {
+  const response = await fetch(`${process.env.HOST}/api/orders/getOrders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
