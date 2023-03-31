@@ -41,7 +41,7 @@ function Checkout() {
           />
           <div className="flex flex-col space-y-10 bg-white text-black">
             <h1 className="text-3xl border-b p-4">
-              {items.length === 0 ? "Your cart is empty." : "Shopping Cart"}
+              {items?.length === 0 ? "Your cart is empty." : "Shopping Cart"}
             </h1>
             {items.map((item, i) => (
               <CheckoutProduct
@@ -60,10 +60,10 @@ function Checkout() {
         </div>
 
         <div className="flex flex-col bg-white p-10 shadow-md">
-          {items.length > 0 && (
+          {items?.length > 0 && (
             <div className="whitespace-nowrap">
               <h2>
-                Subtotal ({items.length}) items:
+                Subtotal ({items?.length}) items:
                 <span className="font-bold pl-2">
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",

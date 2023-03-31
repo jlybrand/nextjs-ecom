@@ -20,7 +20,9 @@ function Order({ id, amount, images, items, timestamp }) {
           </p>
         </div>
         <p className="flex-1 text-xs whitespace-nowrap sm:text-xl self-end text-right text-blue-600">
-          {items.length > 1 ? `${items.length} items` : `${items.length} item`}
+          {items?.length > 1
+            ? `${items?.length} items`
+            : `${items?.length} item`}
         </p>
         <p className="absolute top-2 right-2 w-40 lg:w-72 pr-10 truncate text-xs whitespace-nowrap">
           ORDER NUMBER {id}
