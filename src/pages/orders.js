@@ -80,6 +80,7 @@ export async function getServerSideProps(context) {
   );
 
   console.log("************ Mapped Orders *********************");
+  console.log(orders);
 
   return {
     props: {
