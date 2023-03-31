@@ -43,6 +43,7 @@ export default OrdersPage;
 export async function getServerSideProps(context) {
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
   const session = await getSession(context);
+  let orders;
   // console.log("******** session **************");
   // console.log(session.user.email);
 
@@ -53,34 +54,38 @@ export async function getServerSideProps(context) {
   }
 
   // TODO send customerEmail from session instead of entire session
-  const response = await fetch(`${process.env.HOST}/api/orders/getOrders`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(session),
-  });
-  const mongoOrders = await response.json();
-  console.log("********* customerOrder from getServerSideProps ********");
-  console.log(mongoOrders);
-  console.log("*********************************");
+  try {
+    const response = await fetch(`${process.env.HOST}/api/orders/getOrders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(session),
+    });
+    const mongoOrders = await response.json();
+    console.log("********* customerOrder from getServerSideProps ********");
+    console.log(mongoOrders);
+    console.log("*********************************");
 
-  const orders = await Promise.all(
-    mongoOrders.map(async (order) => ({
-      id: order.orderId,
-      amount: order.totalPrice,
-      images: order.images,
-      timestamp: order.createdAt,
-      items: (
-        await stripe.checkout.sessions.listLineItems(order.orderId, {
-          limit: 100,
-        })
-      ).data,
-    }))
-  );
+    orders = await Promise.all(
+      mongoOrders.map(async (order) => ({
+        id: order.orderId,
+        amount: order.totalPrice,
+        images: order.images,
+        timestamp: order.createdAt,
+        items: (
+          await stripe.checkout.sessions.listLineItems(order.orderId, {
+            limit: 100,
+          })
+        ).data,
+      }))
+    );
 
-  console.log("************ Mapped Orders *********************");
-  console.log(orders);
+    console.log("************ Mapped Orders *********************");
+    console.log(orders);
+  } catch (error) {
+    console.log("Orders ERROR :", error.message);
+  }
 
   return {
     props: {
