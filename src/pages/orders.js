@@ -61,9 +61,9 @@ export async function getServerSideProps(context) {
     body: JSON.stringify(session),
   });
   const mongoOrders = await response.json();
-  // console.log("********* customerOrder from getServerSideProps ********");
-  // console.log(mongoOrders);
-  // console.log("*********************************");
+  console.log("********* customerOrder from getServerSideProps ********");
+  console.log(mongoOrders);
+  console.log("*********************************");
 
   const orders = await Promise.all(
     mongoOrders.map(async (order) => ({
@@ -79,8 +79,7 @@ export async function getServerSideProps(context) {
     }))
   );
 
-  // console.log("************ Mapped Orders *********************");
-  // console.log(orders);
+  console.log("************ Mapped Orders *********************");
 
   return {
     props: {
