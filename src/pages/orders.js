@@ -45,8 +45,7 @@ export async function getServerSideProps(context) {
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
   const session = await getSession(context);
   let orders;
-  // console.log("******** session **************");
-  // console.log(session?.user.email);
+
   if (!session) {
     return {
       props: {},
@@ -56,10 +55,6 @@ export async function getServerSideProps(context) {
   // TODO send customerEmail from session instead of entire session
   try {
     const mongoOrders = await getOrders(session);
-    // const mongoOrders = await response.json();
-    console.log("********* customerOrder from getServerSideProps ********");
-    console.log(mongoOrders);
-    console.log("*********************************");
 
     orders = await Promise.all(
       mongoOrders.map(async (order) => ({
@@ -75,8 +70,6 @@ export async function getServerSideProps(context) {
       }))
     );
     orders = JSON.parse(JSON.stringify(orders));
-    console.log("************ Mapped Orders *********************");
-    console.log(orders);
   } catch (error) {
     console.log("Orders ERROR :", error.message);
   }
