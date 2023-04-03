@@ -8,7 +8,7 @@ export default async function getOrders(session) {
   console.log("*********** inside getOrders ***************");
   // console.log(req.body);
   // console.log(session);
-  const { email } = session.user;
+  const { email } = session?.user;
   // console.log("here ", email);
   try {
     dbConnection();
