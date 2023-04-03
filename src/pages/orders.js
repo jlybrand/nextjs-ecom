@@ -45,8 +45,8 @@ export async function getServerSideProps(context) {
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
   const session = await getSession(context);
   let orders;
-  console.log("******** session **************");
-  console.log(session.user.email);
+  // console.log("******** session **************");
+  // console.log(session?.user.email);
   if (!session) {
     return {
       props: {},
