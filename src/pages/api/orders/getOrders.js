@@ -1,23 +1,13 @@
 import dbConnection from "../utils/dbConnection";
-import handler from "../utils/handler";
 import Order from "../dbModels/order";
 
-handler.post(getOrders);
-
-async function getOrders(req, res) {
-  const { email } = req.body.user;
-
+export default async function getOrders(session) {
+  const { email } = session?.user;
   try {
     dbConnection();
     const order = await Order.find({ customerEmail: email });
-    res.status(200).json(order);
-    console.log("************** /api/orders/getOrders *****************");
-    console.log(order);
-    console.log("******************************************************");
+    return order;
   } catch (error) {
     console.log("DATABASE ERROR :", error.message);
-    res.status(400).json(error.message);
   }
 }
-
-export default handler;

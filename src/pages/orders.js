@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Order from "@/components/Order";
 import { getSession, useSession } from "next-auth/react";
+import getOrders from "./api/orders/getOrders";
 
 function OrdersPage({ orders }) {
   const { data: session } = useSession();
@@ -14,9 +15,9 @@ function OrdersPage({ orders }) {
         </h1>
         {session ? (
           <h2>
-            {orders.length > 1 || orders.length < 1
-              ? `${orders.length} Orders`
-              : `${orders.length} Order`}
+            {orders?.length > 1 || orders?.length < 1
+              ? `${orders?.length} Orders`
+              : `${orders?.length} Order`}
           </h2>
         ) : (
           <h2>Please sign in to view your orders.</h2>
@@ -43,8 +44,7 @@ export default OrdersPage;
 export async function getServerSideProps(context) {
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
   const session = await getSession(context);
-  // console.log("******** session **************");
-  // console.log(session.user.email);
+  let orders;
 
   if (!session) {
     return {
@@ -53,34 +53,26 @@ export async function getServerSideProps(context) {
   }
 
   // TODO send customerEmail from session instead of entire session
-  const response = await fetch(`${process.env.HOST}/api/orders/getOrders`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(session),
-  });
-  const mongoOrders = await response.json();
-  console.log("********* customerOrder from getServerSideProps ********");
-  console.log(mongoOrders);
-  console.log("*********************************");
+  try {
+    const mongoOrders = await getOrders(session);
 
-  const orders = await Promise.all(
-    mongoOrders.map(async (order) => ({
-      id: order.orderId,
-      amount: order.totalPrice,
-      images: order.images,
-      timestamp: order.createdAt,
-      items: (
-        await stripe.checkout.sessions.listLineItems(order.orderId, {
-          limit: 100,
-        })
-      ).data,
-    }))
-  );
-
-  console.log("************ Mapped Orders *********************");
-  console.log(orders);
+    orders = await Promise.all(
+      mongoOrders.map(async (order) => ({
+        id: order.orderId,
+        amount: order.totalPrice,
+        images: order.images,
+        timestamp: order.createdAt,
+        items: (
+          await stripe.checkout.sessions.listLineItems(order.orderId, {
+            limit: 100,
+          })
+        ).data,
+      }))
+    );
+    orders = JSON.parse(JSON.stringify(orders));
+  } catch (error) {
+    console.log("Orders ERROR :", error.message);
+  }
 
   return {
     props: {
