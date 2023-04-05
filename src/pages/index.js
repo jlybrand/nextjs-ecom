@@ -26,13 +26,17 @@ export default function Home({ products }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const products = await fetch("https://fakestoreapi.com/products").then(
-    (res) => res.json()
-  );
+  const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+  const products = await stripe.products.list({
+    active: true,
+    expand: ["data.default_price"],
+    limit: 25,
+  });
 
   return {
     props: {
-      products,
+      products: products.data,
       session,
     },
   };
