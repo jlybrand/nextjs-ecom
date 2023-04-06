@@ -35,7 +35,7 @@ function Product({ id, title, price, description, category, image }) {
 
   return (
     <div className="relative flex flex-col m-5 bg-white p-10 z-30">
-      <p className="absolute top-2 right-2 text-xs text-gray-600 uppercase ">
+      <p className="absolute top-2 right-2 text-xs text-gray-600 uppercase">
         {category}
       </p>
       <Image

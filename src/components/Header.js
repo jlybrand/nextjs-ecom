@@ -90,11 +90,10 @@ function Header() {
           All
         </p>
         <p className="link">Feeders</p>
-        <p className="link">Food</p>
-        <p className="link hidden lg:inline-flex">Houses</p>
+        <p className="link">Houses</p>
+        <p className="link hidden lg:inline-flex">Food</p>
         <p className="link hidden lg:inline-flex">Cameras</p>
-        <p className="link hidden lg:inline-flex">Binoculars</p>
-        <p className="link hidden lg:inline-flex">Maps</p>
+        <p className="link hidden lg:inline-flex">Optics</p>
         <p className="link">Books</p>
       </div>
     </header>
