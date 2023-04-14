@@ -2,7 +2,11 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Header from "@/components/Header";
 import CheckoutProduct from "@/components/CheckoutProduct";
-import { selectItems, selectTotal } from "@/slices/cartSlice";
+import {
+  selectItems,
+  selectTotal,
+  selectTotalItemsInCart,
+} from "@/slices/cartSlice";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { loadStripe } from "@stripe/stripe-js";
@@ -10,6 +14,7 @@ const stripePromise = loadStripe(process.env.stripe_public_key);
 
 function Checkout() {
   const items = useSelector(selectItems);
+  const totalItemsQuantity = useSelector(selectTotalItemsInCart);
   const total = useSelector(selectTotal);
   const { data: session } = useSession();
 
@@ -41,7 +46,9 @@ function Checkout() {
           />
           <div className="flex flex-col space-y-10 bg-white text-black">
             <h1 className="text-3xl border-b p-4">
-              {items.length === 0 ? "Your cart is empty." : "Shopping Cart"}
+              {totalItemsQuantity === 0
+                ? "Your cart is empty."
+                : "Shopping Cart"}
             </h1>
             {items.map((item, i) => (
               <CheckoutProduct
@@ -63,7 +70,7 @@ function Checkout() {
           {items.length > 0 && (
             <div className="whitespace-nowrap">
               <h2>
-                Subtotal ({items.length}) items:
+                Subtotal ({totalItemsQuantity}) items:
                 <span className="font-bold pl-2">
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",

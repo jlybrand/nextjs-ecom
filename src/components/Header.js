@@ -7,12 +7,13 @@ import {
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { selectItems } from "@/slices/cartSlice";
+import { selectItems, selectTotalItemsInCart } from "@/slices/cartSlice";
 
 function Header() {
   const { data: session } = useSession();
   const router = useRouter();
   const items = useSelector(selectItems);
+  const totalItemsQuantity = useSelector(selectTotalItemsInCart);
 
   return (
     <header>
@@ -65,7 +66,7 @@ function Header() {
             className="relative link flex items-center"
           >
             <span className="absolute right-0 top-0 h-4 w-4 bg-yellow-400 rounded-full font-bold text-black text-center">
-              {items.length}
+              {totalItemsQuantity}
             </span>
             <ShoppingCartIcon className="w-10" />
           </div>
