@@ -9,13 +9,18 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      state.items = [...state.items, action.payload];
-    },
-    removeFromCart: (state, action) => {
-      const index = state.items.findIndex(
-        (cartItem) => cartItem.id === action.payload.id
+      const existingItemIndex = state.items.findIndex(
+        (item) => item.id === action.payload.id
       );
 
+      if (existingItemIndex !== -1) {
+        state.items[existingItemIndex].quantity++;
+      } else {
+        action.payload.quantity = 1;
+        state.items = [...state.items, action.payload];
+      }
+    },
+    removeFromCart: (state, action) => {
       let newCart = [...state.items];
       console.log("INDEX :", index);
 
