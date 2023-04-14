@@ -2,9 +2,12 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Header from "@/components/Header";
 import CheckoutProduct from "@/components/CheckoutProduct";
-import { selectItems, selectTotal } from "@/slices/cartSlice";
+import {
+  selectItems,
+  selectTotal,
+  selectTotalItemsInCart,
+} from "@/slices/cartSlice";
 import Image from "next/image";
-import getCartItemQuantity from "/src/pages/utils.js";
 import { useSession } from "next-auth/react";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(process.env.stripe_public_key);
@@ -64,7 +67,7 @@ function Checkout() {
           {items.length > 0 && (
             <div className="whitespace-nowrap">
               <h2>
-                Subtotal ({getCartItemQuantity(items)}) items:
+                Subtotal ({selectTotalItemsInCart(items)}) items:
                 <span className="font-bold pl-2">
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
