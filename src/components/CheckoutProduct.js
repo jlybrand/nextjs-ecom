@@ -1,8 +1,8 @@
 import { StarIcon, TruckIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "@/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart, selectItems } from "@/slices/cartSlice";
 
 function CheckoutProduct({
   id,
@@ -15,6 +15,8 @@ function CheckoutProduct({
   freeShipping,
 }) {
   const dispatch = useDispatch();
+  const cartIems = useSelector(selectItems);
+  const cartItem = cartIems.find((item) => item.id === id);
 
   const addItemToCart = () => {
     const product = {
@@ -67,7 +69,7 @@ function CheckoutProduct({
         )}
       </div>
 
-      <div className="border-2 flex justify-between items-center mb-10 w-150px h-50px place-self-center">
+      <div className="flex justify-between items-center mb-10 w-150px h-50px place-self-center">
         <button
           onClick={removeItemFromCart}
           type="button"
@@ -75,7 +77,7 @@ function CheckoutProduct({
         >
           <span className="m-auto text-2xl font-thin">−</span>
         </button>
-        <span className="px-5">2</span>
+        <span className="px-5">{cartItem?.quantity}</span>
         <button
           onClick={addItemToCart}
           type="button"

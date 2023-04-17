@@ -2,7 +2,7 @@ import {
   addToCart,
   cartSlice,
   removeFromCart,
-  selectTotalItemsInCart,
+  selectTotalCartItems,
   selectTotal,
 } from "../src/slices/cartSlice.js";
 
@@ -51,7 +51,7 @@ describe("cartSlice", () => {
     const item1 = { id: 1, name: "Product 1", price: 10, quantity: 2 };
     const item2 = { id: 2, name: "Product 2", price: 20, quantity: 1 };
     const initialState = { cart: { items: [item1, item2] } };
-    const totalItemsInCart = selectTotalItemsInCart(initialState);
+    const totalItemsInCart = selectTotalCartItems(initialState);
     expect(totalItemsInCart).toEqual(3);
   });
 

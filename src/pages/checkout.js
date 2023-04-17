@@ -5,7 +5,7 @@ import CheckoutProduct from "@/components/CheckoutProduct";
 import {
   selectItems,
   selectTotal,
-  selectTotalItemsInCart,
+  selectTotalCartItems,
 } from "@/slices/cartSlice";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -13,15 +13,15 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
 function Checkout() {
-  const items = useSelector(selectItems);
-  const totalItemsQuantity = useSelector(selectTotalItemsInCart);
+  const cartIems = useSelector(selectItems);
+  const totalItemsQuantity = useSelector(selectTotalCartItems);
   const total = useSelector(selectTotal);
   const { data: session } = useSession();
 
   const createCheckoutSession = async () => {
     const stripe = await stripePromise;
     const checkoutSession = await axios.post("/api/create-checkout-session", {
-      items,
+      cartIems,
       email: session.user.email,
     });
 
@@ -50,7 +50,7 @@ function Checkout() {
                 ? "Your cart is empty."
                 : "Shopping Cart"}
             </h1>
-            {items.map((item, i) => (
+            {cartIems.map((item, i) => (
               <CheckoutProduct
                 key={i}
                 id={item.id}
@@ -67,7 +67,7 @@ function Checkout() {
         </div>
 
         <div className="flex flex-col bg-white p-10 shadow-md">
-          {items.length > 0 && (
+          {cartIems.length > 0 && (
             <div className="whitespace-nowrap">
               <h2>
                 Subtotal ({totalItemsQuantity}) items:
