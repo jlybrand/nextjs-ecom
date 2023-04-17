@@ -41,13 +41,13 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, getItemQuantity } = cartSlice.actions;
 export const selectItems = (state) => state.cart.items;
-export const selectTotalItemsInCart = (state) => {
-  const cartItemQuantity = state.cart.items
+export const selectTotalCartItems = (state) => {
+  const cartItemsQuantity = state.cart.items
     .map((item) => item.quantity)
     .reduce((acc, curr) => acc + curr, 0);
-  return cartItemQuantity;
+  return cartItemsQuantity;
 };
 export const selectTotal = (state) => {
   return state.cart.items.reduce(
