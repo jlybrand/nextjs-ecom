@@ -31,9 +31,9 @@ export const cartSlice = createSlice({
           newCart[existingItemIndex].quantity--;
         } else if (newCart[existingItemIndex].quantity === 1) {
           newCart.splice(existingItemIndex, 1);
-        } else {
-          console.log(`Cannot remove product ${action.payload.id}.`);
         }
+      } else {
+        console.log(`Cannot remove product ${action.payload.id}.`);
       }
 
       state.items = newCart;
