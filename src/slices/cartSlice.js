@@ -21,16 +21,21 @@ export const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, action) => {
-      const index = state.items.findIndex(
+      const existingItemIndex = state.items.findIndex(
         (cartItem) => cartItem.id === action.payload.id
       );
       let newCart = [...state.items];
 
-      if (index >= 0) {
-        newCart.splice(index, 1);
-      } else {
-        console.log(`Cannot remove product ${action.payload.id}.`);
+      if (existingItemIndex !== -1) {
+        if (newCart[existingItemIndex].quantity > 1) {
+          newCart[existingItemIndex].quantity--;
+        } else if (newCart[existingItemIndex].quantity === 1) {
+          newCart.splice(existingItemIndex, 1);
+        } else {
+          console.log(`Cannot remove product ${action.payload.id}.`);
+        }
       }
+
       state.items = newCart;
     },
   },
