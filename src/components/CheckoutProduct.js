@@ -75,7 +75,7 @@ function CheckoutProduct({
         >
           <span className="m-auto text-2xl font-thin">−</span>
         </button>
-        <span className="px-5">{getThisItemQuantity}</span>
+        <span className="px-5">2</span>
         <button
           onClick={addItemToCart}
           type="button"

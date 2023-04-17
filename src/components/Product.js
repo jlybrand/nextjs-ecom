@@ -39,7 +39,7 @@ function Product({ id, title, price, description, category, image }) {
         {category}
       </p>
       <Image
-        className="object-contain"
+        className="object-contain place-self-center"
         src={image}
         width={200}
         height={200}
