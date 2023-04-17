@@ -50,7 +50,10 @@ export const selectTotalItemsInCart = (state) => {
   return cartItemQuantity;
 };
 export const selectTotal = (state) => {
-  return state.cart.items.reduce((acc, curr) => acc + curr.price, 0);
+  return state.cart.items.reduce(
+    (acc, curr) => acc + curr.price * curr.quantity,
+    0
+  );
 };
 
 export default cartSlice.reducer;
