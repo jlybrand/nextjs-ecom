@@ -1,4 +1,4 @@
-import { StarIcon, TruckIcon } from "@heroicons/react/20/solid";
+import { StarIcon, TruckIcon, TrashIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -75,7 +75,9 @@ function CheckoutProduct({
           type="button"
           className="counter-bttn rounded-l cursor-pointer outline-none"
         >
-          <span className="m-auto text-2xl font-thin">−</span>
+          <span className="m-auto text-2xl font-thin">
+            {cartItem?.quantity > 1 ? `-` : <TrashIcon className="px-2 py-1" />}
+          </span>
         </button>
         <span className="px-5">{cartItem?.quantity}</span>
         <button
