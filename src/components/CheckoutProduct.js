@@ -67,12 +67,21 @@ function CheckoutProduct({
         )}
       </div>
 
-      <div className="flex flex-col space-y-2 my-auto justify-self-end">
-        <button onClick={addItemToCart} className="add-button">
-          Add to Cart
+      <div className="border-2 flex justify-between items-center mb-10 w-150px h-50px place-self-center">
+        <button
+          onClick={removeItemFromCart}
+          type="button"
+          className="counter-bttn rounded-l cursor-pointer outline-none"
+        >
+          <span className="m-auto text-2xl font-thin">−</span>
         </button>
-        <button onClick={removeItemFromCart} className="add-button">
-          Remove from Cart
+        <span className="px-5">{getThisItemQuantity}</span>
+        <button
+          onClick={addItemToCart}
+          type="button"
+          className="counter-bttn rounded-r cursor-pointer"
+        >
+          <span className="m-auto text-2xl font-thin">+</span>
         </button>
       </div>
     </div>
