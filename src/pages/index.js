@@ -3,12 +3,17 @@ import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import ProductList from "@/components/ProductList";
 import { getSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export default function Home({ products }) {
+  useEffect(() => {
+    sessionStorage.setItem("products", JSON.stringify(products));
+  }, [products]);
+
   return (
     <div className="bg-gray-100">
       <Head>
-        <title>Next.js Store</title>
+        <title>Starter Store</title>
         <meta name="description" content="e-commerce store" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -17,7 +22,6 @@ export default function Home({ products }) {
 
       <main className="max-w-screen-2xl mx-auto">
         <Banner />
-
         <ProductList products={products} />
       </main>
     </div>
