@@ -2,21 +2,26 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Header from "@/components/Header";
 import CheckoutProduct from "@/components/CheckoutProduct";
-import { selectItems, selectTotal } from "@/slices/cartSlice";
+import {
+  selectItems,
+  selectTotal,
+  selectTotalCartItems,
+} from "@/slices/cartSlice";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
 function Checkout() {
-  const items = useSelector(selectItems);
+  const cartIems = useSelector(selectItems);
+  const totalItemsQuantity = useSelector(selectTotalCartItems);
   const total = useSelector(selectTotal);
   const { data: session } = useSession();
 
   const createCheckoutSession = async () => {
     const stripe = await stripePromise;
     const checkoutSession = await axios.post("/api/create-checkout-session", {
-      items,
+      cartIems,
       email: session.user.email,
     });
 
@@ -28,12 +33,12 @@ function Checkout() {
   };
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 lg:h-screen">
       <Header />
       <main className="lg:flex max-w-screen-2xl mx-auto">
-        <div className="flex-grow m-5 shadow-sm">
+        <div className="flex-grow shadow-sm">
           <Image
-            className="object-contain"
+            className="object-contain w-full"
             src="/mt-fog.jpg"
             width={1020}
             height={250}
@@ -41,9 +46,11 @@ function Checkout() {
           />
           <div className="flex flex-col space-y-10 bg-white text-black">
             <h1 className="text-3xl border-b p-4">
-              {items.length === 0 ? "Your cart is empty." : "Shopping Cart"}
+              {totalItemsQuantity === 0
+                ? "Your cart is empty."
+                : "Shopping Cart"}
             </h1>
-            {items.map((item, i) => (
+            {cartIems.map((item, i) => (
               <CheckoutProduct
                 key={i}
                 id={item.id}
@@ -59,11 +66,11 @@ function Checkout() {
           </div>
         </div>
 
-        <div className="flex flex-col bg-white p-10 shadow-md">
-          {items.length > 0 && (
+        {cartIems.length > 0 && (
+          <div className="flex flex-col bg-white p-10 max-lg:shadow-md">
             <div className="whitespace-nowrap">
               <h2>
-                Subtotal ({items.length}) items:
+                Subtotal ({totalItemsQuantity}) items:
                 <span className="font-bold pl-2">
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
@@ -84,8 +91,8 @@ function Checkout() {
                 {session ? "Proceed to checkout" : "Sign in to checkout"}
               </button>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </main>
     </div>
   );
