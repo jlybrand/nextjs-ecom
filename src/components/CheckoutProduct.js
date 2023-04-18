@@ -38,7 +38,7 @@ function CheckoutProduct({
   };
 
   return (
-    <div className="grid grid-cols-5 px-10">
+    <div className="grid grid-cols-5 px-10 pb-7">
       <Image
         className="object-contain"
         src={image}
