@@ -35,7 +35,7 @@ function Checkout() {
   return (
     <div className="bg-gray-100 lg:h-screen">
       <Header />
-      <main className="lg:flex max-w-screen-2xl mx-auto border border-grey-500 ">
+      <main className="lg:flex max-w-screen-2xl mx-auto">
         <div className="flex-grow shadow-sm">
           <Image
             className="object-contain w-full"
