@@ -33,18 +33,18 @@ function Checkout() {
   };
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 lg:h-screen">
       <Header />
       <main className="lg:flex max-w-screen-2xl mx-auto">
-        <div className="flex-grow m-5 shadow-sm">
+        <div className="flex-grow shadow-sm">
           <Image
-            className="object-contain"
+            className="object-contain w-full"
             src="/mt-fog.jpg"
             width={1020}
             height={250}
             alt="cart banner"
           />
-          <div className="flex flex-col space-y-10 bg-white text-black">
+          <div className="flex flex-col space-y-10 bg-white text-black max-lg:h-screen">
             <h1 className="text-3xl border-b p-4">
               {totalItemsQuantity === 0
                 ? "Your cart is empty."
@@ -66,7 +66,7 @@ function Checkout() {
           </div>
         </div>
 
-        <div className="flex flex-col bg-white p-10 shadow-md">
+        <div className="flex flex-col bg-white p-10 max-lg:shadow-md">
           {cartIems.length > 0 && (
             <div className="whitespace-nowrap">
               <h2>
