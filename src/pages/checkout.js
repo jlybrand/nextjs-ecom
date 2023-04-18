@@ -44,7 +44,7 @@ function Checkout() {
             height={250}
             alt="cart banner"
           />
-          <div className="flex flex-col space-y-10 bg-white text-black max-lg:h-screen">
+          <div className="flex flex-col space-y-10 bg-white text-black">
             <h1 className="text-3xl border-b p-4">
               {totalItemsQuantity === 0
                 ? "Your cart is empty."
@@ -66,8 +66,8 @@ function Checkout() {
           </div>
         </div>
 
-        <div className="flex flex-col bg-white p-10 max-lg:shadow-md">
-          {cartIems.length > 0 && (
+        {cartIems.length > 0 && (
+          <div className="flex flex-col bg-white p-10 max-lg:shadow-md">
             <div className="whitespace-nowrap">
               <h2>
                 Subtotal ({totalItemsQuantity}) items:
@@ -91,8 +91,8 @@ function Checkout() {
                 {session ? "Proceed to checkout" : "Sign in to checkout"}
               </button>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </main>
     </div>
   );
