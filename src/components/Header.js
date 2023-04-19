@@ -3,6 +3,7 @@ import Image from "next/image";
 import {
   ShoppingCartIcon,
   MagnifyingGlassIcon,
+  Bars3Icon,
 } from "@heroicons/react/20/solid";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -14,6 +15,18 @@ function Header() {
   const router = useRouter();
   const items = useSelector(selectItems);
   const totalItemsQuantity = useSelector(selectTotalCartItems);
+  const categories = [
+    "feeders",
+    "houses",
+    "nectar",
+    "cameras",
+    "optics",
+    "books",
+  ];
+
+  function navigateToPage(page) {
+    router.push(`/category/${page.toLowerCase()}`);
+  }
 
   return (
     <header>
@@ -73,14 +86,14 @@ function Header() {
         </div>
       </div>
       <div className="flex items-center bg-cool_grey-light p-2 pl-6 space-x-3 text-white text-sm">
-        <p className="link flex items-center">
+        <p onClick={() => router.push("/")} className="link flex items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth="1.5"
+            strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 mr-1"
+            className="w-6 h-6"
           >
             <path
               strokeLinecap="round"
@@ -90,12 +103,15 @@ function Header() {
           </svg>
           All
         </p>
-        <p className="link">Feeders</p>
-        <p className="link">Houses</p>
-        <p className="link hidden lg:inline-flex">Food</p>
-        <p className="link hidden lg:inline-flex">Cameras</p>
-        <p className="link hidden lg:inline-flex">Optics</p>
-        <p className="link">Books</p>
+        {categories.map((category, index) => (
+          <p
+            key={index}
+            onClick={() => navigateToPage(category)}
+            className="link"
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </p>
+        ))}
       </div>
     </header>
   );
