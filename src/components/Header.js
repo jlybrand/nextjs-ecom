@@ -85,7 +85,7 @@ function Header() {
           </div>
         </div>
       </div>
-      <div className="flex items-center bg-cool_grey-light p-2 pl-6 space-x-3 text-white text-sm">
+      <div className="flex items-center bg-cool_grey-light p-2 pl-6 space-x-3 text-white text-sm overflow-x-auto no-scrollbar">
         <p onClick={() => router.push("/")} className="link flex items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
