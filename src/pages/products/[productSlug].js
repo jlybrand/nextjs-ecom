@@ -35,7 +35,7 @@ export default function ProductPage() {
       return product.metadata.slug === productSlug;
     });
 
-    return product || "1";
+    return product || "";
   }
 
   const matchedProduct = products ? matchProductSlug() : "";
