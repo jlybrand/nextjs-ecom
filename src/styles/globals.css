@@ -12,6 +12,6 @@
   }
 
   .link {
-    @apply cursor-pointer hover:underline;
+    @apply cursor-pointer hover:text-gray-300;
   }
 }
