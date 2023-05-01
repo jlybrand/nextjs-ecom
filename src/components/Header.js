@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   ShoppingCartIcon,
@@ -8,13 +8,13 @@ import {
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { selectItems, selectTotalCartItems } from "@/slices/cartSlice";
+import { selectTotalCartItems } from "@/slices/cartSlice";
 
 function Header() {
   const { data: session } = useSession();
   const router = useRouter();
-  const items = useSelector(selectItems);
   const totalItemsQuantity = useSelector(selectTotalCartItems);
+  const [isOpen, setIsOpen] = useState(false);
   const categories = [
     "feeders",
     "houses",
@@ -85,22 +85,11 @@ function Header() {
           </div>
         </div>
       </div>
-      <div className="flex items-center bg-cool_grey-light p-2 pl-6 space-x-3 text-white text-sm">
+      <div className="flex items-center bg-cool_grey-light p-2 pl-6 space-x-3 text-white text-sm overflow-x-auto no-scrollbar">
+        <button onClick={() => setIsOpen(!isOpen)}>
+          <Bars3Icon className="w-6 mr-4" />
+        </button>
         <p onClick={() => router.push("/")} className="link flex items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
           All
         </p>
         {categories.map((category, index) => (
@@ -113,6 +102,21 @@ function Header() {
           </p>
         ))}
       </div>
+      <nav
+        className={`${
+          isOpen ? "block" : "hidden"
+        } absolute w-[45%] flex flex-col flex-grow items-start px-10 text-lg text-black`}
+      >
+        {categories.map((category, index) => (
+          <p
+            key={index}
+            onClick={() => navigateToPage(category)}
+            className="link"
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </p>
+        ))}
+      </nav>
     </header>
   );
 }
