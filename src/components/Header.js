@@ -8,13 +8,11 @@ import {
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { selectItems, selectTotalCartItems } from "@/slices/cartSlice";
-import Link from "next/link";
+import { selectTotalCartItems } from "@/slices/cartSlice";
 
 function Header() {
   const { data: session } = useSession();
   const router = useRouter();
-  // const items = useSelector(selectItems);
   const totalItemsQuantity = useSelector(selectTotalCartItems);
   const [isOpen, setIsOpen] = useState(false);
   const categories = [
