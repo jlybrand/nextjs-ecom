@@ -59,7 +59,6 @@ function AuthForm() {
 
   return (
     <div className="bg-gray-300 h-screen">
-      <Header />
       <section className="max-w-xl mx-auto my-7">
         {!registered ? (
           <>
