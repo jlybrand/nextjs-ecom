@@ -41,7 +41,9 @@ function Footer() {
       </div>
       <div className="flex justify-between items-center bg-cool_grey px-5 py-10">
         <div className="text-white mx-2">
-          <p>Copyright &copy;2023 Startup Store</p>
+          <p>
+            Copyright <br className="sm:hidden" /> &copy;2023 Startup Store
+          </p>
         </div>
 
         <div className="bg-gray-400 hidden sm:flex items-center cursor-pointer">
