@@ -8,7 +8,6 @@ function OrdersPage({ orders }) {
 
   return (
     <div>
-      <Header />
       <main className="max-w-screen-xl mx-auto p-10">
         <h1 className="border-b border-cool_grey-light mb-2 pb-1 text-3xl">
           Your Orders

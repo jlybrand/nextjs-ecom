@@ -4,6 +4,7 @@ import Banner from "@/components/Banner";
 import ProductList from "@/components/ProductList";
 import { getSession } from "next-auth/react";
 import { useEffect } from "react";
+import Footer from "@/components/Footer";
 
 export default function Home({ products }) {
   useEffect(() => {
@@ -18,7 +19,6 @@ export default function Home({ products }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
 
       <main className="max-w-screen-2xl mx-auto">
         <Banner />

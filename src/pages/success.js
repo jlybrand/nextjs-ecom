@@ -7,7 +7,6 @@ function Success() {
   const router = useRouter();
   return (
     <div className="bg-blue-200 h-screen">
-      <Header />
       <main className="max-w-screen-lg mx-auto">
         <div className="flex flex-col p-10 bg-white">
           <div className="flex items-center justify-center space-x-2 mb-5">
