@@ -60,7 +60,6 @@ export default function ProductPage() {
 
   return (
     <div className="">
-      <Header />
       <div className="max-w-screen-xl mx-auto">
         <div className="relative flex flex-col m-5 bg-white p-10 z-30">
           <p className="absolute top-2 right-2 text-xs text-gray-600 uppercase">
