@@ -105,7 +105,7 @@ function Header() {
       <nav
         className={`${
           isOpen ? "block" : "hidden"
-        } absolute w-[45%] flex flex-col flex-grow items-start px-10 text-lg text-black`}
+        } bg-white w-[20%] max-sm:w-full max-sm:h-screen sm:absolute flex flex-col flex-grow items-start px-20 py-10 text-xl text-black z-40 shadow-lg`}
       >
         {categories.map((category, index) => (
           <p
