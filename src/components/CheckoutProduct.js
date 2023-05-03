@@ -39,7 +39,7 @@ function CheckoutProduct({
   };
 
   return (
-    <div className="grid grid-cols-5 px-10 pb-7">
+    <div className="grid sm:grid-cols-5 px-10 pb-7">
       <Image
         className="object-contain"
         src={image}
@@ -48,7 +48,7 @@ function CheckoutProduct({
         alt="product image"
       />
 
-      <div className="col-span-3 mx-5">
+      <div className="sm:col-span-3 max-sm:mt-5 sm:mx-5">
         <p>{title}</p>
         <div className="flex">
           {Array(rating)
@@ -70,7 +70,7 @@ function CheckoutProduct({
         )}
       </div>
 
-      <div className="flex justify-between items-center mb-10 w-150px h-50px place-self-center">
+      <div className="flex justify-start sm:justify-between items-center max-sm:mt-10 mb-10 max-sm:w-full sm:w-150px h-50px place-self-center">
         <button
           onClick={removeItemFromCart}
           type="button"
