@@ -13,7 +13,7 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
 function Checkout() {
-  const cartIems = useSelector(selectItems);
+  const cartItems = useSelector(selectItems);
   const totalItemsQuantity = useSelector(selectTotalCartItems);
   const total = useSelector(selectTotal);
   const { data: session } = useSession();
@@ -21,7 +21,7 @@ function Checkout() {
   const createCheckoutSession = async () => {
     const stripe = await stripePromise;
     const checkoutSession = await axios.post("/api/create-checkout-session", {
-      cartIems,
+      cartItems,
       email: session.user.email,
     });
 
@@ -49,7 +49,7 @@ function Checkout() {
                 ? "Your cart is empty."
                 : "Shopping Cart"}
             </h1>
-            {cartIems.map((item, i) => (
+            {cartItems.map((item, i) => (
               <CheckoutProduct
                 key={i}
                 id={item.id}
@@ -65,7 +65,7 @@ function Checkout() {
           </div>
         </div>
 
-        {cartIems.length > 0 && (
+        {cartItems.length > 0 && (
           <div className="flex flex-col bg-white p-10 max-lg:shadow-md">
             <div className="whitespace-nowrap">
               <h2>
