@@ -4,7 +4,7 @@ import {
   removeFromCart,
   selectTotalCartItems,
   selectTotal,
-} from "../src/slices/cartSlice.js";
+} from "../src/app/redux/slices/cartSlice.js";
 
 describe("cartSlice", () => {
   let initialState;

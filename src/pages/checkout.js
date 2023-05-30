@@ -6,7 +6,7 @@ import {
   selectItems,
   selectTotal,
   selectTotalCartItems,
-} from "@/slices/cartSlice";
+} from "@/app/redux/slices/cartSlice";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { loadStripe } from "@stripe/stripe-js";
@@ -49,7 +49,7 @@ function Checkout() {
                 ? "Your cart is empty."
                 : "Shopping Cart"}
             </h1>
-            {cartItems.map((item, i) => (
+            {cartItems?.map((item, i) => (
               <CheckoutProduct
                 key={i}
                 id={item.id}
@@ -65,7 +65,7 @@ function Checkout() {
           </div>
         </div>
 
-        {cartItems.length > 0 && (
+        {cartItems?.length > 0 && (
           <div className="flex flex-col bg-white p-10 max-lg:shadow-md">
             <div className="whitespace-nowrap">
               <h2>

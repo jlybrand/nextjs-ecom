@@ -8,7 +8,7 @@ import {
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { selectTotalCartItems } from "@/slices/cartSlice";
+import { selectTotalCartItems } from "@/app/redux/slices/cartSlice";
 
 function Header() {
   const { data: session } = useSession();
