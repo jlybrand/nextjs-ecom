@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
-import Header from "@/components/Header";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CheckoutProduct from "@/components/CheckoutProduct";
 import {
+  addToCart,
   selectItems,
   selectTotal,
   selectTotalCartItems,
@@ -12,11 +13,23 @@ import { useSession } from "next-auth/react";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
-function Checkout() {
+function Cart() {
   const cartItems = useSelector(selectItems);
   const totalItemsQuantity = useSelector(selectTotalCartItems);
   const total = useSelector(selectTotal);
   const { data: session } = useSession();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const localCartItems = localStorage.getItem("localCart");
+    if (localCartItems) {
+      dispatch(addToCart(JSON.parse(localCartItems)));
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("localCart", JSON.stringify(cartItems));
+  // }, [cartItems]);
 
   const createCheckoutSession = async () => {
     const stripe = await stripePromise;
@@ -97,4 +110,4 @@ function Checkout() {
   );
 }
 
-export default Checkout;
+export default Cart;
