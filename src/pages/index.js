@@ -4,7 +4,6 @@ import Banner from "@/components/Banner";
 import ProductList from "@/components/ProductList";
 import { getSession } from "next-auth/react";
 import { useEffect } from "react";
-import Footer from "@/components/Footer";
 
 export default function Home({ products }) {
   useEffect(() => {

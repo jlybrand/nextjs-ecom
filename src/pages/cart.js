@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutProduct from "@/components/CheckoutProduct";
 import {
-  addToCart,
   selectItems,
   selectTotal,
   selectTotalCartItems,
+  setToLocalCart,
 } from "@/app/redux/slices/cartSlice";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -23,13 +23,9 @@ function Cart() {
   useEffect(() => {
     const localCartItems = localStorage.getItem("localCart");
     if (localCartItems) {
-      dispatch(addToCart(JSON.parse(localCartItems)));
+      dispatch(setToLocalCart(JSON.parse(localCartItems)));
     }
   }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("localCart", JSON.stringify(cartItems));
-  // }, [cartItems]);
 
   const createCheckoutSession = async () => {
     const stripe = await stripePromise;
