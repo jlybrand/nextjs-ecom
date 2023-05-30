@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import Order from "@/components/Order";
 import { getSession, useSession } from "next-auth/react";
 import getOrders from "./api/orders/getOrders";

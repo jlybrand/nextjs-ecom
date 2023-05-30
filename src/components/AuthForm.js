@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import Header from "./Header";
 
 async function createUser(email, password) {
   const response = await fetch("/api/auth/signup", {

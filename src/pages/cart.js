@@ -1,27 +1,36 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
-import Header from "@/components/Header";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CheckoutProduct from "@/components/CheckoutProduct";
 import {
   selectItems,
   selectTotal,
   selectTotalCartItems,
-} from "@/slices/cartSlice";
+  setToLocalCart,
+} from "@/app/redux/slices/cartSlice";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(process.env.stripe_public_key);
 
-function Checkout() {
-  const cartIems = useSelector(selectItems);
+function Cart() {
+  const cartItems = useSelector(selectItems);
   const totalItemsQuantity = useSelector(selectTotalCartItems);
   const total = useSelector(selectTotal);
   const { data: session } = useSession();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const localCartItems = localStorage.getItem("localCart");
+    if (localCartItems) {
+      dispatch(setToLocalCart(JSON.parse(localCartItems)));
+    }
+  }, []);
 
   const createCheckoutSession = async () => {
     const stripe = await stripePromise;
     const checkoutSession = await axios.post("/api/create-checkout-session", {
-      cartIems,
+      cartItems,
       email: session.user.email,
     });
 
@@ -49,7 +58,7 @@ function Checkout() {
                 ? "Your cart is empty."
                 : "Shopping Cart"}
             </h1>
-            {cartIems.map((item, i) => (
+            {cartItems?.map((item, i) => (
               <CheckoutProduct
                 key={i}
                 id={item.id}
@@ -65,7 +74,7 @@ function Checkout() {
           </div>
         </div>
 
-        {cartIems.length > 0 && (
+        {cartItems?.length > 0 && (
           <div className="flex flex-col bg-white p-10 max-lg:shadow-md">
             <div className="whitespace-nowrap">
               <h2>
@@ -97,4 +106,4 @@ function Checkout() {
   );
 }
 
-export default Checkout;
+export default Cart;

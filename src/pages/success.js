@@ -1,7 +1,5 @@
-import Header from "@/components/Header";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
-import React from "react";
 
 function Success() {
   const router = useRouter();

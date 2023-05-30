@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import Image from "next/image";
-import {
-  ShoppingCartIcon,
-  MagnifyingGlassIcon,
-  Bars3Icon,
-} from "@heroicons/react/20/solid";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { selectTotalCartItems } from "@/slices/cartSlice";
+import { selectTotalCartItems } from "@/app/redux/slices/cartSlice";
 
 function Footer() {
   const { data: session } = useSession();

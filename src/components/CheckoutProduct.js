@@ -3,7 +3,11 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart, selectItems } from "@/slices/cartSlice";
+import {
+  addToCart,
+  removeFromCart,
+  selectItems,
+} from "@/app/redux/slices/cartSlice";
 
 function CheckoutProduct({
   id,

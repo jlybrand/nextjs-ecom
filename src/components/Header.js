@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   ShoppingCartIcon,
@@ -8,7 +8,11 @@ import {
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { selectTotalCartItems } from "@/slices/cartSlice";
+import {
+  selectTotalCartItems,
+  setToLocalCart,
+} from "@/app/redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
 
 function Header() {
   const { data: session } = useSession();
@@ -23,6 +27,14 @@ function Header() {
     "optics",
     "books",
   ];
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const localCartItems = localStorage.getItem("localCart");
+    if (localCartItems) {
+      dispatch(setToLocalCart(JSON.parse(localCartItems)));
+    }
+  }, []);
 
   function navigateToPage(page) {
     router.push(`/category/${page.toLowerCase()}`);
@@ -75,7 +87,7 @@ function Header() {
           </div>
 
           <div
-            onClick={() => router.push("/checkout")}
+            onClick={() => router.push("/cart")}
             className="relative link flex items-center"
           >
             <span className="absolute right-0 top-0 h-4 w-4 bg-yellow-400 rounded-full font-bold text-black text-center">
