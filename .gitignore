@@ -36,3 +36,4 @@ serviceAccountKey.json
 
 devNotes.txt
 productText.txt
+src/localStorage.js
