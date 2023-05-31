@@ -1,8 +1,14 @@
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function Success() {
   const router = useRouter();
+
+  useEffect(() => {
+    localStorage.removeItem("localCart");
+  }, []);
+
   return (
     <div className="bg-blue-200 h-screen">
       <main className="max-w-screen-lg mx-auto">
