@@ -1,12 +1,24 @@
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setToLocalCart } from "@/app/redux/slices/cartSlice";
 
 function Success() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     localStorage.removeItem("localCart");
+  }, []);
+
+  useEffect(() => {
+    const localCartItems = localStorage.getItem("localCart");
+    if (localCartItems) {
+      dispatch(setToLocalCart(JSON.parse(localCartItems)));
+    } else {
+      dispatch(setToLocalCart([]));
+    }
   }, []);
 
   return (
