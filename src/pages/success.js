@@ -1,10 +1,26 @@
-import Header from "@/components/Header";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { useRouter } from "next/router";
-import React from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setToLocalCart } from "@/app/redux/slices/cartSlice";
 
 function Success() {
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.removeItem("localCart");
+  }, []);
+
+  useEffect(() => {
+    const localCartItems = localStorage.getItem("localCart");
+    if (localCartItems) {
+      dispatch(setToLocalCart(JSON.parse(localCartItems)));
+    } else {
+      dispatch(setToLocalCart([]));
+    }
+  }, []);
+
   return (
     <div className="bg-blue-200 h-screen">
       <main className="max-w-screen-lg mx-auto">

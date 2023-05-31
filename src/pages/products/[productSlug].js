@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { StarIcon, TruckIcon } from "@heroicons/react/20/solid";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/slices/cartSlice";
+import { addToCart } from "@/app/redux/slices/cartSlice";
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
@@ -27,7 +27,11 @@ export default function ProductPage() {
   useEffect(() => {
     const sessionData = sessionStorage.getItem("products");
 
-    if (sessionData) setProducts(JSON.parse(sessionData));
+    if (sessionData) {
+      setProducts(JSON.parse(sessionData));
+    } else {
+      router.push("/");
+    }
   }, []);
 
   function matchProductSlug() {
