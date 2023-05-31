@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 async function createUser(email, password) {
   const response = await fetch("/api/auth/signup", {
@@ -41,11 +42,16 @@ function AuthForm() {
     // TODO: Add validation here
 
     if (isLogin) {
-      await signIn("credentials", {
-        redirect: "/",
+      const { error } = await signIn("credentials", {
+        redirect: false,
         email: enteredEmail,
         password: enteredPassword,
       });
+      if (error) {
+        toast.error("Invalid Credentials");
+      } else {
+        router.push("/");
+      }
     } else {
       try {
         const result = await createUser(enteredEmail, enteredPassword);
