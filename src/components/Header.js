@@ -33,6 +33,8 @@ function Header() {
     const localCartItems = localStorage.getItem("localCart");
     if (localCartItems) {
       dispatch(setToLocalCart(JSON.parse(localCartItems)));
+    } else {
+      dispatch(setToLocalCart([]));
     }
   }, []);
 
