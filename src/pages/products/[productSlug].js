@@ -27,7 +27,11 @@ export default function ProductPage() {
   useEffect(() => {
     const sessionData = sessionStorage.getItem("products");
 
-    if (sessionData) setProducts(JSON.parse(sessionData));
+    if (sessionData) {
+      setProducts(JSON.parse(sessionData));
+    } else {
+      router.push("/");
+    }
   }, []);
 
   function matchProductSlug() {
