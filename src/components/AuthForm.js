@@ -25,8 +25,9 @@ function AuthForm() {
   const [registered, setRegistered] = useState(false);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-
   const [isLogin, setIsLogin] = useState(true);
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
   const router = useRouter();
 
   function switchAuthModeHandler() {
@@ -40,6 +41,20 @@ function AuthForm() {
     const enteredPassword = passwordInputRef.current.value;
 
     // TODO: Add validation here
+    const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    const trimmedEmail = enteredEmail?.trim();
+    if (!trimmedEmail.match(regex)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    if (enteredPassword.trim() === "") {
+      setPasswordError("Please enter a password.");
+      return;
+    }
+
+    setEmailError(null);
+    setPasswordError(null);
 
     if (isLogin) {
       const { error } = await signIn("credentials", {
@@ -64,12 +79,13 @@ function AuthForm() {
 
   return (
     <div className="bg-gray-300 h-screen">
-      <section className="max-w-xl mx-auto my-7">
+      <section className="max-w-xl mx-auto mb-7">
         {!registered ? (
           <>
             <form
               className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
               onSubmit={submitHandler}
+              noValidate
             >
               <div className="mb-4">
                 <label
@@ -86,6 +102,9 @@ function AuthForm() {
                   ref={emailInputRef}
                 />
               </div>
+              {emailError && (
+                <p className="text-red-500 text-sm">{emailError}</p>
+              )}
               <div className="mb-6">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -101,6 +120,9 @@ function AuthForm() {
                   ref={passwordInputRef}
                 />
               </div>
+              {passwordError && (
+                <p className="text-red-500 text-sm ">{passwordError}</p>
+              )}
               <div className="my-5 flex flex-col max-sm:space-y-7 sm:flex-row items-center justify-between">
                 <button className="add-button px-4">
                   {isLogin ? "Sign In" : "Create Account"}
