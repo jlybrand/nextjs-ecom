@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -13,9 +14,11 @@ export const cartSlice = createSlice({
 
       if (existingItemIndex !== -1) {
         state.items[existingItemIndex].quantity++;
+        toast.success(`${action.payload.title} Quantity Updated`);
       } else {
         action.payload.quantity = 1;
         state.items = [...state.items, action.payload];
+        toast.success(`${action.payload.title} Added to Cart`);
       }
 
       localStorage.setItem("localCart", JSON.stringify(state.items));
